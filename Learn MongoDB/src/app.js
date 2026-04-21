@@ -27,4 +27,17 @@ app.get('/notes', async (req, res) => {
     })
 })
 
+// DELETE - Delte a note from DB
+app.delete('/notes/:id', async (req, res)=>{
+    const id = req.params.id
+    
+    await noteModel.findOneAndDelete({
+        _id: id
+    })
+
+    res.status(200).json({
+        message: 'note deleted successfully'
+    })
+})
+
 module.exports = app
