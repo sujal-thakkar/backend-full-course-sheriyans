@@ -27,7 +27,7 @@ app.get('/notes', async (req, res) => {
     })
 })
 
-// DELETE - Delte a note from DB
+// DELETE - Delete a note from DB
 app.delete('/notes/:id', async (req, res)=>{
     const id = req.params.id
     
@@ -37,6 +37,18 @@ app.delete('/notes/:id', async (req, res)=>{
 
     res.status(200).json({
         message: 'note deleted successfully'
+    })
+})
+
+// PATCH - Update a note from DB
+app.patch('/notes/:id', async(req, res)=>{
+    const id = req.params.id
+    const description = req.body.description
+
+    await noteModel.findOneAndUpdate({_id: id}, {description: description})
+
+    res.status(200).json({
+        message: 'Updated note successfully'
     })
 })
 
