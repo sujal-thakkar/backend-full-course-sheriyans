@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 const ViewPosts = () => {
-  const [posts] = useState([
+  const [posts, setPosts] = useState([
     {
       _id: "1",
       image:
@@ -10,6 +11,20 @@ const ViewPosts = () => {
       caption: "city skyline",
     },
   ]);
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/posts')
+    .then((response) => {
+      console.log(response.data.posts);
+      
+      setPosts(response.data.posts);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+
+  }, [])
+  
 
   return (
     <div className="min-h-screen bg-neutral-50 text-neutral-900">
